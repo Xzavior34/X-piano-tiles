@@ -7,25 +7,19 @@ const music = document.getElementById("music");
 
 let tiles = [];
 let score = 0;
-let speed = 10; // faster starting speed
+let speed = 10; // starting speed
 let gameOver = false;
 let spawnInterval;
 let gameOverOverlay;
 let lastCol = -1;
-let musicStarted = false; // track if music started
+let musicStarted = false;
 
-// Local songs in the same folder as index.html
-const songs = [
-  "song1.mp3",
-  "song2.mp3",
-  "song3.mp3"
-];
+const songs = ["song1.mp3", "song2.mp3", "song3.mp3"];
 
 function playRandomSong() {
   const randomSong = songs[Math.floor(Math.random() * songs.length)];
   music.src = randomSong;
 
-  // Ensure playback works after user interaction
   music.play().catch(() => {
     document.body.addEventListener("click", () => music.play(), { once: true });
     document.body.addEventListener("touchstart", () => music.play(), { once: true });
@@ -63,14 +57,13 @@ class Tile {
     score++;
     scoreDisplay.textContent = "Score: " + score;
 
-    // start music on first hit
     if (!musicStarted) {
       musicStarted = true;
       playRandomSong();
     }
 
-    // increase difficulty gradually
-    speed = 10 + Math.floor(score / 8) * 0.9; 
+    // increase difficulty
+    speed = 10 + Math.floor(score / 8) * 0.7; 
   }
 }
 
@@ -78,9 +71,18 @@ function spawnTile() {
   if (gameOver) return;
 
   let col;
+  let attempts = 0;
+
+  // pick a free column (not last one, not occupied)
   do {
     col = Math.floor(Math.random() * 4);
-  } while (col === lastCol); 
+    attempts++;
+    if (attempts > 10) return; // fallback to avoid infinite loop
+  } while (
+    col === lastCol ||
+    tiles.some(tile => tile.col === col && !tile.clicked) // avoid overlap
+  );
+
   lastCol = col;
 
   const tile = new Tile(col);
@@ -95,20 +97,25 @@ function gameLoop() {
 }
 
 function startGame() {
-  // Reset states
+  // Reset UI
   menuScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
   if (gameOverOverlay) gameOverOverlay.remove();
   restartBtn.classList.add("hidden");
 
+  // Reset state
   score = 0;
-  speed = 10; // reset starting speed
+  speed = 10;
   musicStarted = false;
   scoreDisplay.textContent = "Score: 0";
   gameOver = false;
   tiles = [];
 
-  spawnInterval = setInterval(spawnTile, 1000);
+  // Clear leftover tiles if restarting
+  document.querySelectorAll(".tile").forEach(tile => tile.remove());
+
+  // Start tile spawning
+  spawnInterval = setInterval(spawnTile, 900);
   gameLoop();
 }
 
@@ -118,11 +125,10 @@ function endGame() {
 
   if (musicStarted) {
     music.pause();
-    music.currentTime = 0; // reset music for next round
+    music.currentTime = 0;
     musicStarted = false;
   }
 
-  // Create game over overlay
   gameOverOverlay = document.createElement("div");
   gameOverOverlay.id = "game-over";
   gameOverOverlay.innerHTML = `
