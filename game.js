@@ -53,7 +53,11 @@ class Tile {
   hit() {
     if (this.clicked || gameOver) return;
     this.clicked = true;
-    this.el.remove();
+
+    // Gold effect ✨
+    this.el.classList.add("gold-flash");
+    setTimeout(() => this.el.remove(), 200);
+
     score++;
     scoreDisplay.textContent = "Score: " + score;
 
@@ -63,30 +67,46 @@ class Tile {
     }
 
     // increase difficulty
-    speed = 10 + Math.floor(score / 8) * 0.7; 
+    speed = 10 + Math.floor(score / 8) * 0.7;
   }
 }
 
 function spawnTile() {
   if (gameOver) return;
 
-  let col;
+  let cols = [];
   let attempts = 0;
 
-  // pick a free column (not last one, not occupied)
+  // always at least one tile
+  let col1;
   do {
-    col = Math.floor(Math.random() * 4);
+    col1 = Math.floor(Math.random() * 4);
     attempts++;
-    if (attempts > 10) return; // fallback to avoid infinite loop
+    if (attempts > 10) return;
   } while (
-    col === lastCol ||
-    tiles.some(tile => tile.col === col && !tile.clicked) // avoid overlap
+    col1 === lastCol ||
+    tiles.some(tile => tile.col === col1 && !tile.clicked)
   );
+  cols.push(col1);
 
-  lastCol = col;
+  // sometimes spawn a second tile
+  if (Math.random() < 0.3) { // 30% chance
+    let col2;
+    do {
+      col2 = Math.floor(Math.random() * 4);
+    } while (
+      col2 === col1 ||
+      tiles.some(tile => tile.col === col2 && !tile.clicked)
+    );
+    cols.push(col2);
+  }
 
-  const tile = new Tile(col);
-  tiles.push(tile);
+  lastCol = cols[cols.length - 1];
+
+  cols.forEach(col => {
+    const tile = new Tile(col);
+    tiles.push(tile);
+  });
 }
 
 function gameLoop() {
