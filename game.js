@@ -7,7 +7,7 @@ const music = document.getElementById("music");
 
 let tiles = [];
 let score = 0;
-let speed = 6; // faster starting speed
+let speed = 10; // faster starting speed
 let gameOver = false;
 let spawnInterval;
 let gameOverOverlay;
@@ -70,7 +70,7 @@ class Tile {
     }
 
     // increase difficulty gradually
-    speed = 6 + Math.floor(score / 8) * 0.7; 
+    speed = 10 + Math.floor(score / 8) * 0.9; 
   }
 }
 
@@ -102,7 +102,7 @@ function startGame() {
   restartBtn.classList.add("hidden");
 
   score = 0;
-  speed = 6; // reset starting speed
+  speed = 10; // reset starting speed
   musicStarted = false;
   scoreDisplay.textContent = "Score: 0";
   gameOver = false;
