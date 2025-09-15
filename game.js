@@ -14,23 +14,21 @@ let gameOverOverlay;
 let lastCol = -1;
 let musicStarted = false; // track if music started
 
+// Local songs in the same folder as index.html
 const songs = [
-  "https://cdn.pixabay.com/download/audio/2022/03/15/audio_6a5b20c0ce.mp3?filename=hip-hop-808-11862.mp3",
-  "https://cdn.pixabay.com/download/audio/2022/11/04/audio_22690d6dbb.mp3?filename=lofi-hip-hop-12601.mp3",
-  "https://cdn.pixabay.com/download/audio/2023/03/07/audio_3352e03b9a.mp3?filename=hip-hop-background-140005.mp3"
+  "song1.mp3",
+  "song2.mp3",
+  "song3.mp3"
 ];
 
 function playRandomSong() {
   const randomSong = songs[Math.floor(Math.random() * songs.length)];
   music.src = randomSong;
 
+  // Ensure playback works after user interaction
   music.play().catch(() => {
-    document.body.addEventListener("touchstart", () => {
-      music.play();
-    }, { once: true });
-    document.body.addEventListener("click", () => {
-      music.play();
-    }, { once: true });
+    document.body.addEventListener("click", () => music.play(), { once: true });
+    document.body.addEventListener("touchstart", () => music.play(), { once: true });
   });
 }
 
@@ -117,9 +115,12 @@ function startGame() {
 function endGame() {
   gameOver = true;
   clearInterval(spawnInterval);
-  music.pause();
-  music.currentTime = 0; // reset music for next round
-  musicStarted = false;
+
+  if (musicStarted) {
+    music.pause();
+    music.currentTime = 0; // reset music for next round
+    musicStarted = false;
+  }
 
   // Create game over overlay
   gameOverOverlay = document.createElement("div");
