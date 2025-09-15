@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Tiles</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Start Menu -->
+  <div id="menu-screen">
+    <h1 class="game-title">🎹 Piano Tiles</h1>
+    <button id="start-btn">Start Game</button>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game-screen" class="hidden">
+    <div id="score">Score: 0</div>
+    <div id="grid">
+      <div class="column" data-col="0"></div>
+      <div class="column" data-col="1"></div>
+      <div class="column" data-col="2"></div>
+      <div class="column" data-col="3"></div>
+    </div>
+    <button id="restart-btn" class="hidden">Restart</button>
+  </div>
+
+  <audio id="music" loop></audio>
+  <script src="game.js"></script>
+</body>
+</html>
