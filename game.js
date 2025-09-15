@@ -67,7 +67,7 @@ class Tile {
     }
 
     // increase difficulty
-    speed = 10 + Math.floor(score / 8) * 0.7;
+    speed = 10 + Math.floor(score / 8) * 0.5;
   }
 }
 
