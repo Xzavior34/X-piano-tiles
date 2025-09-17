@@ -8,10 +8,11 @@ html, body {
   overflow: hidden;
 }
 
-/* Background premium dark blue + black */
+/* Background default premium dark blue */
 body {
   background: linear-gradient(135deg, #0a0f2c, #000000);
   color: white;
+  transition: background 1s ease; /* smooth transition */
 }
 
 .hidden {
@@ -86,7 +87,7 @@ body {
   left: 0;
   width: 100%;
   height: 25%; /* long rectangle */
-  background: #0077ff;
+  background: black; /* tiles always black */
   border-radius: 5px;
 }
 
