@@ -16,6 +16,20 @@ let musicStarted = false;
 
 const songs = ["song1.mp3", "song2.mp3", "song3.mp3"];
 
+// Background gradients cycle
+const gradients = [
+  "linear-gradient(135deg, #0a0f2c, #000000)", // dark blue
+  "linear-gradient(135deg, #330000, #000000)", // dark red
+  "linear-gradient(135deg, #333300, #000000)", // dark yellow
+  "linear-gradient(135deg, #003300, #000000)", // dark green
+  "linear-gradient(135deg, #0a0f2c, #000000)"  // back to dark blue
+];
+
+function updateBackground(score) {
+  let index = Math.floor(score / 50) % gradients.length;
+  document.body.style.background = gradients[index];
+}
+
 function playRandomSong() {
   const randomSong = songs[Math.floor(Math.random() * songs.length)];
   music.src = randomSong;
@@ -54,12 +68,16 @@ class Tile {
     if (this.clicked || gameOver) return;
     this.clicked = true;
 
-    // Gold effect ✨
+    // Gold flash effect
     this.el.classList.add("gold-flash");
     setTimeout(() => this.el.remove(), 200);
 
+    // Increase score
     score++;
     scoreDisplay.textContent = "Score: " + score;
+
+    // Update background when score increases
+    updateBackground(score);
 
     if (!musicStarted) {
       musicStarted = true;
@@ -130,6 +148,9 @@ function startGame() {
   scoreDisplay.textContent = "Score: 0";
   gameOver = false;
   tiles = [];
+
+  // Reset background to dark blue at start
+  document.body.style.background = gradients[0];
 
   // Clear leftover tiles if restarting
   document.querySelectorAll(".tile").forEach(tile => tile.remove());
