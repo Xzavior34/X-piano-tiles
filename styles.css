@@ -82,19 +82,19 @@ body {
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* --- Solid Black Tiles --- */
+/* --- Pure Solid Black Tiles --- */
 .tile {
   position: absolute;
   left: 0;
   width: 100%;
   height: 25%; /* long rectangle */
 
-  background: #000000; /* solid black */
-  border-radius: 0; /* sharp edges like classic piano tiles */
-  box-shadow: none; /* no glow */
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-
+  background: #000000 !important; /* FORCE solid black */
+  border-radius: 0 !important;    /* no round edges */
+  box-shadow: none !important;    /* no glow */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 1 !important;          /* 100% visible */
   transition: transform 0.1s ease;
 }
 
