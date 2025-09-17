@@ -16,17 +16,14 @@ let musicStarted = false;
 
 const songs = ["song1.mp3", "song2.mp3", "song3.mp3"];
 
-// Background gradients cycle
+// Brighter background gradients
 const gradients = [
-  "linear-gradient(135deg, #0a0f2c, #000000)", // dark blue
-  "linear-gradient(135deg, #330000, #000000)", // dark red
-  "linear-gradient(135deg, #333300, #000000)", // dark yellow
-  "linear-gradient(135deg, #003300, #000000)", // dark green
-  "linear-gradient(135deg, #0a0f2c, #000000)"  // back to dark blue
+  "linear-gradient(135deg, #3a7bd5, #00d2ff)", // bright blue
+  "linear-gradient(135deg, #ff416c, #ff4b2b)", // bright red
+  "linear-gradient(135deg, #f7971e, #ffd200)", // bright yellow
+  "linear-gradient(135deg, #56ab2f, #a8e063)", // bright green
+  "linear-gradient(135deg, #3a7bd5, #00d2ff)"  // back to blue
 ];
-
-// Neon glow classes for tiles
-const glowClasses = ["glow-blue", "glow-pink", "glow-green", "glow-yellow"];
 
 function updateBackground(score) {
   let index = Math.floor(score / 50) % gradients.length;
@@ -49,8 +46,8 @@ class Tile {
     this.el = document.createElement("div");
     this.el.classList.add("tile");
 
-    // add random neon glow class
-    this.el.classList.add(glowClasses[Math.floor(Math.random() * glowClasses.length)]);
+    // force solid black background (ignore neon glow classes)
+    this.el.style.background = "#000";
 
     this.el.style.top = "-25%";
     document.querySelector(`.column[data-col="${col}"]`).appendChild(this.el);
@@ -155,7 +152,7 @@ function startGame() {
   gameOver = false;
   tiles = [];
 
-  // Reset background to dark blue at start
+  // Reset background to bright blue at start
   document.body.style.background = gradients[0];
 
   // Clear leftover tiles if restarting
