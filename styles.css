@@ -8,9 +8,9 @@ html, body {
   overflow: hidden;
 }
 
-/* Background default premium dark blue */
+/* Background default premium brighter gradient */
 body {
-  background: linear-gradient(135deg, #0a0f2c, #000000);
+  background: linear-gradient(135deg, #1a2f6c, #222222); /* lighter dark blue gradient */
   color: white;
   transition: background 1s ease; /* smooth transition */
 }
@@ -40,7 +40,7 @@ body {
   font-size: 1.5em;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(90deg, #0077ff, #00f7ff);
+  background: linear-gradient(90deg, #3399ff, #66f7ff); /* brighter button */
   color: white;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -78,8 +78,8 @@ body {
 .column {
   flex: 1;
   position: relative;
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.3); /* slightly brighter */
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* --- Pure Solid Black Tiles --- */
