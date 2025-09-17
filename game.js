@@ -25,6 +25,9 @@ const gradients = [
   "linear-gradient(135deg, #0a0f2c, #000000)"  // back to dark blue
 ];
 
+// Neon glow classes for tiles
+const glowClasses = ["glow-blue", "glow-pink", "glow-green", "glow-yellow"];
+
 function updateBackground(score) {
   let index = Math.floor(score / 50) % gradients.length;
   document.body.style.background = gradients[index];
@@ -45,8 +48,11 @@ class Tile {
     this.col = col;
     this.el = document.createElement("div");
     this.el.classList.add("tile");
-    this.el.style.top = "-25%";
 
+    // add random neon glow class
+    this.el.classList.add(glowClasses[Math.floor(Math.random() * glowClasses.length)]);
+
+    this.el.style.top = "-25%";
     document.querySelector(`.column[data-col="${col}"]`).appendChild(this.el);
     this.clicked = false;
 
