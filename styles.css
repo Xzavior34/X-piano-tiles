@@ -82,51 +82,25 @@ body {
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* --- Premium Neon Glass Tiles --- */
+/* --- Solid Black Tiles --- */
 .tile {
   position: absolute;
   left: 0;
   width: 100%;
   height: 25%; /* long rectangle */
 
-  /* Glass effect */
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: #000000; /* solid black */
+  border-radius: 0; /* sharp edges like classic piano tiles */
+  box-shadow: none; /* no glow */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 
-  /* Default glow */
-  box-shadow: 0 0 15px rgba(0, 247, 255, 0.3),
-              inset 0 0 10px rgba(255, 255, 255, 0.05);
-
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-/* Glow color variations (randomly added via JS) */
-.tile.glow-blue {
-  box-shadow: 0 0 20px rgba(0, 183, 255, 0.7),
-              inset 0 0 12px rgba(255, 255, 255, 0.1);
-}
-
-.tile.glow-pink {
-  box-shadow: 0 0 20px rgba(255, 0, 150, 0.7),
-              inset 0 0 12px rgba(255, 255, 255, 0.1);
-}
-
-.tile.glow-green {
-  box-shadow: 0 0 20px rgba(0, 255, 128, 0.7),
-              inset 0 0 12px rgba(255, 255, 255, 0.1);
-}
-
-.tile.glow-yellow {
-  box-shadow: 0 0 20px rgba(255, 230, 0, 0.7),
-              inset 0 0 12px rgba(255, 255, 255, 0.1);
+  transition: transform 0.1s ease;
 }
 
 /* Press animation */
 .tile:active {
   transform: scale(0.97);
-  filter: brightness(1.3);
 }
 
 /* --- Game Over Overlay --- */
